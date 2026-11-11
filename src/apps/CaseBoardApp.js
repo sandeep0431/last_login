@@ -103,6 +103,11 @@ export function createCaseBoardApp(onStartAccusation) {
             </div>
           </div>
 
+          <!-- Procedural Warning Banner -->
+          <div style="margin-bottom: 16px; padding: 10px 14px; background: rgba(255, 59, 92, 0.08); border-left: 3px solid var(--color-red); font-size: 11px; line-height: 1.5; color: #ff99aa;">
+            ⚠️ <strong>PROCEDURAL CAUTION:</strong> Formally submitting an arrest warrant with contradictory or unverified evidence will lead to wrongful conviction, catastrophic defeat, and the permanent escape of the true perpetrator.
+          </div>
+
           <!-- Submit Warrant Button -->
           <div style="text-align: right;">
             <button id="btn-submit-warrant" style="background: var(--color-red); color: #fff; font-family: var(--font-mono); font-weight: bold; padding: 10px 24px; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer;">

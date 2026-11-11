@@ -96,10 +96,15 @@ export function createLandingScene(onProceedToPrologue) {
 
     <!-- Interactive HUD Prompt Button -->
     <div class="landing-hud-wrapper">
+      <button type="button" id="btn-toggle-intro-sound" class="landing-sound-pill" style="margin-bottom: 8px; font-family: 'Share Tech Mono', monospace; font-size: 11px; color: #A8C2D8; letter-spacing: 0.15em; background: rgba(5, 8, 13, 0.75); border: 1px solid rgba(168, 194, 216, 0.35); border-radius: 20px; padding: 6px 18px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; backdrop-filter: blur(8px); transition: all 0.25s ease;">
+        <span id="sound-indicator-icon">🔊</span>
+        <span id="sound-indicator-text">CLICK ANYWHERE FOR SOUND</span>
+      </button>
+
       <button type="button" id="btn-enter-game" class="landing-enter-button" aria-label="Press Enter or Click to Play">
         <span class="hud-corner top-left"></span>
         <span class="hud-corner top-right"></span>
-        <span class="landing-prompt-text" id="landing-prompt-label">PRESS ENTER TO START GAME [CLICK TO START &bull; PRESS ENTER]</span>
+        <span class="landing-prompt-text" id="landing-prompt-label">START INVESTIGATION [PRESS ENTER &bull; CLICK TO BEGIN]</span>
         <span class="hud-corner bottom-left"></span>
         <span class="hud-corner bottom-right"></span>
       </button>
@@ -182,26 +187,53 @@ export function createLandingScene(onProceedToPrologue) {
 
   // Audio & Interaction Handling
   const enterBtn = container.querySelector('#btn-enter-game');
+  const soundBtn = container.querySelector('#btn-toggle-intro-sound');
+  const soundIcon = container.querySelector('#sound-indicator-icon');
+  const soundText = container.querySelector('#sound-indicator-text');
   const promptLabel = container.querySelector('#landing-prompt-label');
   const flashOverlay = container.querySelector('#landing-flash');
 
-  // Attempt to play intro audio
-  audioManager.playIntroMusic();
+  let isAudioActive = false;
 
-  const wakeAudio = () => {
+  const startIntroAudio = () => {
+    if (isAudioActive) return;
     try {
       audioManager.ensureContext();
       audioManager.playIntroMusic();
+      isAudioActive = true;
+      if (soundIcon) soundIcon.textContent = '🎵';
+      if (soundText) soundText.textContent = 'PLAYING INTRO SOUNDTRACK';
+      if (soundBtn) {
+        soundBtn.style.borderColor = 'rgba(61, 245, 255, 0.6)';
+        soundBtn.style.color = '#FFFFFF';
+        soundBtn.style.boxShadow = '0 0 15px rgba(61, 245, 255, 0.3)';
+      }
     } catch (e) {}
   };
-  window.addEventListener('pointerdown', wakeAudio, { once: true });
-  window.addEventListener('keydown', wakeAudio, { once: true });
+
+  // Attempt initial playback (in case browser autoplay permission is already granted)
+  audioManager.playIntroMusic();
+
+  // If user clicks anywhere on the background, start the intro music
+  const backgroundClickHandler = (e) => {
+    if (!e.target.closest('#btn-enter-game')) {
+      startIntroAudio();
+    }
+  };
+  container.addEventListener('click', backgroundClickHandler);
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      startIntroAudio();
+    });
+  }
 
   function cleanup() {
     if (animId) cancelAnimationFrame(animId);
     window.removeEventListener('resize', resizeCanvas);
     window.removeEventListener('keydown', keyHandler);
-    window.removeEventListener('pointerdown', wakeAudio);
+    container.removeEventListener('click', backgroundClickHandler);
   }
 
   function triggerStart() {

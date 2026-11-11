@@ -11,6 +11,15 @@ export function createStatementsLogApp() {
   container.style.height = '100%';
   container.style.overflowY = 'auto';
 
+  function getSpeakerColor(speaker = '') {
+    const s = speaker.toLowerCase();
+    if (s.includes('tanvi')) return '#FF7AD9';
+    if (s.includes('mishra')) return '#8FD694';
+    if (s.includes('kabir')) return '#7FB8FF';
+    if (s.includes('das')) return '#C99A6B';
+    return 'var(--color-cyan)';
+  }
+
   function render() {
     const list = gameState.statementsLog;
 
@@ -25,10 +34,12 @@ export function createStatementsLogApp() {
         </div>
       ` : `
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          ${list.map(s => `
-            <div style="padding: 10px 14px; background: rgba(20, 27, 45, 0.85); border-left: 3px solid var(--color-cyan); border-radius: var(--radius-sm); font-size: 13px;">
+          ${list.map(s => {
+            const speakerColor = getSpeakerColor(s.speaker);
+            return `
+            <div style="padding: 10px 14px; background: rgba(20, 27, 45, 0.85); border-left: 3px solid ${speakerColor}; border-radius: var(--radius-sm); font-size: 13px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-family: var(--font-mono); font-size: 11px; font-weight: bold; color: var(--color-cyan);">
+                <span style="font-family: var(--font-mono); font-size: 11px; font-weight: bold; color: ${speakerColor};">
                   ${s.speaker}
                 </span>
                 <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-dim);">
@@ -39,7 +50,8 @@ export function createStatementsLogApp() {
                 ${s.text}
               </div>
             </div>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
       `}
     `;
