@@ -65,6 +65,74 @@ export function createRiverbankScene(onComplete) {
     <!-- Dynamic Rain Particle Layer -->
     <div class="rain-container" id="rain-layer"></div>
 
+    <!-- Layer 2.5: Dr. Sahoo's Abandoned Sedan (Upstream on the bank) -->
+    <div class="parallax-car" style="position: absolute; bottom: 75px; left: 110px; width: 320px; height: 140px; pointer-events: none; z-index: 4;">
+      <svg viewBox="0 0 320 140" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bankCarGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0a1422"/>
+            <stop offset="50%" stop-color="#18273c"/>
+            <stop offset="100%" stop-color="#080f1a"/>
+          </linearGradient>
+          <radialGradient id="beamVol" cx="0%" cy="50%" r="100%">
+            <stop offset="0%" stop-color="rgba(255, 255, 240, 0.85)"/>
+            <stop offset="35%" stop-color="rgba(61, 245, 255, 0.3)"/>
+            <stop offset="100%" stop-color="rgba(61, 245, 255, 0)"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Headlight Volumetric Beam Cutting Across the Mud -->
+        <polygon points="265,75 320,40 320,110 265,82" fill="url(#beamVol)"/>
+
+        <!-- Car Drop Shadow -->
+        <ellipse cx="145" cy="118" rx="140" ry="12" fill="rgba(3, 6, 10, 0.8)"/>
+
+        <!-- Wheels with Alloy Rims -->
+        <circle cx="55" cy="104" r="20" fill="#090f16"/>
+        <circle cx="55" cy="104" r="14" fill="#1b2938" stroke="#7f8c8d" stroke-width="2"/>
+        <circle cx="55" cy="104" r="5" fill="#3DF5FF"/>
+
+        <circle cx="225" cy="104" r="20" fill="#090f16"/>
+        <circle cx="225" cy="104" r="14" fill="#1b2938" stroke="#7f8c8d" stroke-width="2"/>
+        <circle cx="225" cy="104" r="5" fill="#3DF5FF"/>
+
+        <!-- Sleek Sedan Chassis -->
+        <path d="M 12 96 L 22 66 Q 35 48 60 50 Q 110 12 165 10 Q 215 12 235 50 Q 255 55 268 70 L 270 85 Q 268 98 250 102 L 244 102 A 22 22 0 0 0 206 102 L 74 102 A 22 22 0 0 0 36 102 Z" fill="url(#bankCarGrad)" stroke="#22364f" stroke-width="1.5"/>
+
+        <!-- Metallic Specular Line -->
+        <path d="M 30 58 L 260 72" stroke="rgba(127, 184, 255, 0.5)" stroke-width="1.2"/>
+
+        <!-- Rear Cabin Window -->
+        <path d="M 45 52 L 80 24 L 140 20 L 138 52 Z" fill="#0a121d" stroke="#34495e" stroke-width="1"/>
+
+        <!-- Windshield -->
+        <path d="M 160 18 L 210 22 L 230 52 L 180 52 Z" fill="#0c1724" stroke="#34495e" stroke-width="1"/>
+
+        <!-- Interior Cabin Warm Illumination -->
+        <ellipse cx="140" cy="40" rx="35" ry="18" fill="rgba(255, 220, 140, 0.45)"/>
+
+        <!-- Dashboard Cyan Glow -->
+        <rect x="180" y="44" width="16" height="6" rx="1" fill="#3DF5FF" opacity="0.85"/>
+
+        <!-- Open Driver's Door (Swung open toward foreground) -->
+        <path d="M 140 48 L 110 98 L 118 102 L 152 50 Z" fill="#0d1b2a" stroke="#7FB8FF" stroke-width="1.2"/>
+        <line x1="140" y1="48" x2="110" y2="28" stroke="#34495e" stroke-width="1.5"/>
+        <rect x="114" y="80" width="8" height="2" fill="#ecf0f1"/>
+
+        <!-- Front Matrix LED Headlight -->
+        <circle cx="264" cy="78" r="4.5" fill="#ffffff"/>
+        <line x1="250" y1="70" x2="266" y2="76" stroke="#3DF5FF" stroke-width="2"/>
+
+        <!-- Rear Red LED Ribbon -->
+        <rect x="12" y="66" width="6" height="8" rx="1" fill="#ff1744"/>
+
+        <!-- Amber Hazard Flasher (Pulsing) -->
+        <circle cx="266" cy="84" r="3" fill="#f39c12">
+          <animate attributeName="opacity" values="1;0.2;1" dur="0.9s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
     <!-- Layer 3: Foreground Riverbank & Muddy Shoreline -->
     <div class="parallax-foreground" style="position: absolute; bottom: 0; left: 0; right: 0; height: 150px; z-index: 6; pointer-events: auto;">
       <svg viewBox="0 0 1200 150" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,20 +148,27 @@ export function createRiverbankScene(onComplete) {
       </svg>
 
       <!-- Hotspot 1: Police Tape (Left) -->
-      <div class="hotspot-item" id="hotspot-tape" style="position: absolute; bottom: 65px; left: 60px; cursor: pointer; z-index: 10;" title="Inspect Police Tape">
+      <div class="hotspot-item" id="hotspot-tape" style="position: absolute; bottom: 65px; left: 40px; cursor: pointer; z-index: 10;" title="Inspect Police Tape">
         <div style="background: rgba(241, 196, 15, 0.2); border: 2px dashed #f1c40f; color: #f1c40f; font-family: var(--font-mono); font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px;">
           <span>🚧 POLICE TAPE [E]</span>
         </div>
       </div>
 
-      <!-- Hotspot 2: Muddy Footprints (Middle) -->
-      <div class="hotspot-item" id="hotspot-footprints" style="position: absolute; bottom: 45px; left: 440px; cursor: pointer; z-index: 10;" title="Inspect Footprints">
+      <!-- Hotspot 2: Abandoned Vehicle (Upstream) -->
+      <div class="hotspot-item" id="hotspot-car" style="position: absolute; bottom: 80px; left: 220px; cursor: pointer; z-index: 10;" title="Inspect Abandoned Vehicle">
+        <div style="background: rgba(127, 184, 255, 0.2); border: 2px solid #7FB8FF; color: #7FB8FF; font-family: var(--font-mono); font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px; box-shadow: 0 0 12px rgba(127, 184, 255, 0.35);">
+          <span>🚗 ABANDONED SEDAN [E]</span>
+        </div>
+      </div>
+
+      <!-- Hotspot 3: Muddy Footprints (Middle) -->
+      <div class="hotspot-item" id="hotspot-footprints" style="position: absolute; bottom: 45px; left: 460px; cursor: pointer; z-index: 10;" title="Inspect Footprints">
         <div style="background: rgba(61, 245, 255, 0.15); border: 1px solid var(--color-cyan); color: var(--color-cyan); font-family: var(--font-mono); font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px;">
           <span>👣 MUDDY FOOTPRINTS [E]</span>
         </div>
       </div>
 
-      <!-- Hotspot 3: Glowing Laptop (Right, Advances to Briefing) -->
+      <!-- Hotspot 4: Glowing Laptop (Right, Advances to Briefing) -->
       <div class="hotspot-item" id="hotspot-laptop" style="position: absolute; bottom: 85px; left: 755px; cursor: pointer; z-index: 10;" title="Inspect Dr. Sahoo's Laptop">
         <!-- Blinking Neon Laptop Glow -->
         <div style="background: rgba(61, 245, 255, 0.25); border: 2px solid var(--color-cyan); color: #fff; font-family: var(--font-mono); font-size: 11px; font-weight: bold; padding: 6px 12px; border-radius: var(--radius-sm); box-shadow: var(--shadow-glow-cyan); display: flex; align-items: center; gap: 8px; animation: charTalkBob 1s infinite alternate;">
@@ -190,6 +265,14 @@ export function createRiverbankScene(onComplete) {
     audioManager.playKeyTick();
     triggerDialogue('riverbank_tape');
   });
+
+  const carHotspot = container.querySelector('#hotspot-car');
+  if (carHotspot) {
+    carHotspot.addEventListener('click', () => {
+      audioManager.playKeyTick();
+      triggerDialogue('riverbank_car');
+    });
+  }
 
   container.querySelector('#hotspot-footprints').addEventListener('click', () => {
     audioManager.playKeyTick();

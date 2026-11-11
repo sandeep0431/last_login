@@ -2,6 +2,14 @@
 
 export const DIALOGUE_DATA = {
   // Riverbank Inspections
+  riverbank_car: {
+    speaker: 'arya',
+    expression: 'suspicious',
+    text: "Dr. Sahoo's black sedan. The driver's door was left wide open in the rain. Headlights are still burning, cutting through the silt. The keys are dangling in the ignition and her personal purse is untouched on the passenger seat. She didn't leave voluntarily.",
+    choices: [
+      { text: "Log vehicle status in forensic record.", next: null }
+    ]
+  },
   riverbank_tape: {
     speaker: 'arya',
     expression: 'suspicious',
