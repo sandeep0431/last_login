@@ -1,0 +1,217 @@
+/* ==========================================================================
+   LAST LOGIN — 4K Alan Wake Atmospheric Title Screen Styling
+   ========================================================================== */
+
+:root {
+  --color-abyss: #05080D;
+  --color-forest: #0C131D;
+  --color-fog-deep: #1A2533;
+  --color-fog-mid: #34485D;
+  --color-volumetric: #A8C2D8;
+  --color-glow: #E8F2FA;
+  --color-white: #FFFFFF;
+  --color-hazard: #D93829;
+  
+  --font-title: 'Oswald', 'Bebas Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-abyss);
+  font-family: var(--font-mono);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Atmospheric Particle Canvas */
+#atmosphere-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
+
+/* Main Title Stage */
+.intro-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 24px 36px 24px;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(52, 72, 93, 0.4) 0%,
+    rgba(26, 37, 51, 0.6) 45%,
+    rgba(5, 8, 13, 0.95) 85%,
+    var(--color-abyss) 100%
+  );
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+}
+
+/* Vector SVG Typography Stage */
+.vector-title-wrapper {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.title-svg {
+  width: 100%;
+  max-height: 72vh;
+  overflow: visible;
+  filter: drop-shadow(0 12px 35px rgba(5, 8, 13, 0.9));
+}
+
+/* SVG Typography Classes */
+.svg-text-base {
+  font-family: var(--font-title);
+  font-size: 260px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: #FFFFFF;
+}
+
+.svg-text-outline {
+  font-family: var(--font-title);
+  font-size: 260px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: none;
+  stroke: rgba(232, 242, 250, 0.4);
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+}
+
+/* Flashlight Pulse Animation */
+.flashlight-flare-pulse {
+  animation: flarePulse 2.8s infinite ease-in-out alternate;
+}
+
+@keyframes flarePulse {
+  0% { transform: scale(0.95); opacity: 0.85; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Interactive HUD Prompt Button */
+.hud-prompt-wrapper {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.hud-enter-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 34px;
+  background: rgba(5, 8, 13, 0.75);
+  border: 1px solid rgba(168, 194, 216, 0.4);
+  color: var(--color-volumetric);
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.4vw, 15px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: hudBreathing 3.6s infinite ease-in-out;
+}
+
+.hud-enter-button:hover,
+.hud-enter-button:focus-visible {
+  background: rgba(26, 37, 51, 0.85);
+  border-color: var(--color-white);
+  color: var(--color-white);
+  box-shadow: 0 0 25px rgba(232, 242, 250, 0.45), inset 0 0 15px rgba(168, 194, 216, 0.2);
+  transform: scale(1.025);
+}
+
+.hud-enter-button.triggered {
+  border-color: var(--color-white);
+  background: #FFFFFF;
+  color: #05080D;
+  box-shadow: 0 0 45px rgba(255, 255, 255, 0.95);
+  transform: scale(1.04);
+}
+
+/* Corner Accents */
+.hud-border-corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-color: var(--color-volumetric);
+  pointer-events: none;
+  transition: border-color 0.25s ease;
+}
+
+.hud-enter-button:hover .hud-border-corner {
+  border-color: var(--color-white);
+}
+
+.hud-border-corner.top-left { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+.hud-border-corner.top-right { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+.hud-border-corner.bottom-left { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+.hud-border-corner.bottom-right { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+
+@keyframes hudBreathing {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(168, 194, 216, 0.15);
+    border-color: rgba(168, 194, 216, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(168, 194, 216, 0.45);
+    border-color: rgba(232, 242, 250, 0.75);
+  }
+}
+
+.hud-sub-notice {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(168, 194, 216, 0.45);
+  text-align: center;
+}
+
+/* Cinematic Fullscreen Fade Overlay */
+.cinematic-fade-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-abyss);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinematic-fade-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}

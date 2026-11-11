@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LAST LOGIN v2 // NirvanaOS Case File</title>
+  <meta name="description" content="A character-driven detective mystery inside a compromised operating system. Investigate the disappearance of Dr. Meera Sahoo as Inspector Arya.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0F1A'/%3E%3Ccircle cx='16' cy='16' r='10' stroke='%233DF5FF' stroke-width='2.5' fill='none'/%3E%3Ccircle cx='13' cy='14' r='1.5' fill='%233DF5FF'/%3E%3Ccircle cx='19' cy='14' r='1.5' fill='%233DF5FF'/%3E%3Cpath d='M12 20 Q16 23 20 20' stroke='%233DF5FF' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  
+  <!-- Design styles -->
+  <link rel="stylesheet" href="./src/styles/tokens.css">
+  <link rel="stylesheet" href="./src/styles/global.css">
+  <link rel="stylesheet" href="./src/styles/effects.css">
+  <link rel="stylesheet" href="./src/styles/characters.css">
+  <link rel="stylesheet" href="./src/styles/desktop.css">
+  <link rel="stylesheet" href="./src/styles/title.css">
+  <link rel="stylesheet" href="./src/styles/landing.css">
+  <link rel="stylesheet" href="./src/styles/video.css">
+</head>
+<body class="theme-dark">
+  <!-- Top global system controls: Sound toggle, Motion toggle, Case Evidence tracker, Emergency Reset -->
+  <header id="global-hud" class="global-hud" aria-label="System HUD">
+    <div class="hud-left">
+      <span class="hud-tag">CASE // SAHOO-2026-1147</span>
+      <span id="hud-status" class="hud-status">STATUS: INITIALIZING</span>
+    </div>
+    <div class="hud-center">
+      <div id="hud-clue-counter" class="hud-clue-badge" title="Evidence Logged">
+        <span class="clue-icon">🗂</span> EVIDENCE: <strong id="hud-clue-val">0</strong>/6
+      </div>
+    </div>
+    <div class="hud-right">
+      <button id="btn-hud-options" class="hud-btn" title="Game Options & Menu" aria-label="Game options and menu">
+        <span class="btn-icon">⚙️</span> <span class="btn-label">OPTIONS</span>
+      </button>
+      <button id="btn-toggle-motion" class="hud-btn" title="Toggle Reduced Motion" aria-label="Toggle reduced motion">
+        <span class="btn-icon">⚡</span> <span class="btn-label">MOTION</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Game Stage -->
+  <main id="app" class="game-stage" role="main"></main>
+
+  <!-- CRT Screen Effects (scanlines, vignette, subtle film grain) -->
+  <div id="crt-overlay" class="crt-overlay pointer-events-none" aria-hidden="true">
+    <div class="crt-scanlines"></div>
+    <div class="crt-vignette"></div>
+    <div class="crt-grain"></div>
+    <div id="glitch-flash" class="glitch-flash"></div>
+  </div>
+
+  <!-- Toast Notification Container for Clues and System Alerts -->
+  <aside id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></aside>
+
+  <!-- Application Entry Point -->
+  <script type="module" src="./src/main.js?v=2.2"></script>
+</body>
+</html>
+

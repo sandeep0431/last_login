@@ -1,0 +1,150 @@
+/* Visual & Atmospheric Effects */
+
+/* CRT Overlay */
+.crt-overlay,
+.crt-overlay * {
+  pointer-events: none !important;
+}
+
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+}
+
+.crt-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.28) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.65;
+}
+
+.crt-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 55%,
+    rgba(4, 7, 12, 0.75) 100%
+  );
+}
+
+.crt-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glitch Flash Screen Effect */
+.glitch-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 59, 92, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.08s ease;
+}
+
+.glitch-flash.active {
+  opacity: 1;
+  animation: glitchStrobe 0.18s steps(2) forwards;
+}
+
+@keyframes glitchStrobe {
+  0% { opacity: 0.8; transform: translate(-2px, 1px); }
+  50% { opacity: 0.2; transform: translate(3px, -2px); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+
+/* Rain Effect */
+.rain-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.rain-drop {
+  position: absolute;
+  width: 1.5px;
+  background: linear-gradient(to bottom, rgba(61, 245, 255, 0), rgba(61, 245, 255, 0.45));
+  opacity: 0.6;
+  animation: rainFall linear infinite;
+}
+
+@keyframes rainFall {
+  0% {
+    transform: translateY(-50px) translateX(0);
+  }
+  100% {
+    transform: translateY(105vh) translateX(-20px);
+  }
+}
+
+/* Police Lights Pulse */
+.police-lights {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.police-beacon-red {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  background: radial-gradient(circle, rgba(255, 59, 92, 0.4) 0%, transparent 70%);
+  animation: strobeRed 1.8s infinite ease-in-out;
+}
+
+.police-beacon-blue {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  background: radial-gradient(circle, rgba(61, 245, 255, 0.4) 0%, transparent 70%);
+  animation: strobeBlue 1.8s infinite ease-in-out;
+  animation-delay: 0.9s;
+}
+
+@keyframes strobeRed {
+  0%, 100% { opacity: 0.15; transform: scale(0.9); }
+  45%, 55% { opacity: 0.65; transform: scale(1.15); }
+}
+
+@keyframes strobeBlue {
+  0%, 100% { opacity: 0.15; transform: scale(0.9); }
+  45%, 55% { opacity: 0.65; transform: scale(1.15); }
+}
+
+/* Reduced Motion Mode Overrides */
+@media (prefers-reduced-motion: reduce), (update: slow) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .crt-scanlines, .crt-grain, .rain-container {
+    display: none !important;
+  }
+}
+
+body.reduced-motion *,
+body.reduced-motion ::before,
+body.reduced-motion ::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+body.reduced-motion .crt-scanlines,
+body.reduced-motion .crt-grain,
+body.reduced-motion .rain-container {
+  display: none !important;
+}
+

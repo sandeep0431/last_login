@@ -1,0 +1,15 @@
+{
+  "name": "last-login-v2",
+  "version": "2.0.0",
+  "description": "Last Login v2 — Detective mystery game set inside a compromised operating system",
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "serve": "python -m http.server 3000",
+    "test": "node test_game.js"
+  },
+  "keywords": ["detective", "mystery", "retro-os", "svg", "web-audio"],
+  "author": "Antigravity Pair Programmer",
+  "license": "MIT"
+}
+
